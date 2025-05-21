@@ -24,9 +24,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", (_, res) => {
-   res.json({ message: "Server running successfully" });
-});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
