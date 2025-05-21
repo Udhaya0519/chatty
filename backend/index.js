@@ -31,9 +31,16 @@ app.get("/", (_, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
-const PORT = process.env.PORT || 3000;
+await connectDB();
 
-server.listen(PORT, () => {
-   connectDB();
-   console.log("Server running at port:", PORT);
-});
+if (process.env.NODE_ENV !== "production") {
+   const PORT = process.env.PORT || 3000;
+
+   server.listen(PORT, () => {
+      console.log("Server running at port:", PORT);
+   });
+}
+
+//export server for vercel
+
+export default server
