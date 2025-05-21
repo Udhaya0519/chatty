@@ -7,13 +7,18 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
    cors: {
-      origin: ["http://localhost:5173"],
+      origin: [
+         "https://chatty-lovat-five.vercel.app",
+         "https://chatty-udhaya-js-projects.vercel.app",
+         "https://chatty-git-main-udhaya-js-projects.vercel.app",
+      ],
+      credentials: true,
    },
 });
 
 const getReceiverSocketId = (userId) => {
-    return userSocketMap[userId]
-}
+   return userSocketMap[userId];
+};
 
 const userSocketMap = {};
 
