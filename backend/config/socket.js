@@ -12,6 +12,7 @@ const io = new Server(server, {
          "https://chatty-udhaya-js-projects.vercel.app",
          "https://chatty-git-main-udhaya-js-projects.vercel.app",
       ],
+      methods: ["GET", "POST"],
       credentials: true,
    },
 });
