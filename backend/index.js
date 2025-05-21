@@ -13,9 +13,9 @@ dotenv.config();
 app.use(
    cors({
       origin: [
-         "https://chatty-lovat-five.vercel.app/",
-         "https://chatty-udhaya-js-projects.vercel.app/",
-         "https://chatty-git-main-udhaya-js-projects.vercel.app/",
+         "https://chatty-lovat-five.vercel.app",
+         "https://chatty-udhaya-js-projects.vercel.app",
+         "https://chatty-git-main-udhaya-js-projects.vercel.app",
       ],
       credentials: true,
    })
