@@ -1,34 +1,41 @@
-// import { Server } from "socket.io";
+import { Server } from "socket.io";
 import http from "http";
 import express from "express";
 
-// const app = express();
-// const server = http.createServer(app);
+const app = express();
+const server = http.createServer(app);
 
-// const io = new Server(server, {
-//    cors: {
-//       origin: "*",
-//    },
-// });
+const io = new Server(server, {
+   cors: {
+      origin: [
+         "https://chatty-lovat-five.vercel.app",
+         "https://chatty-udhaya-js-projects.vercel.app",
+         "https://chatty-git-main-udhaya-js-projects.vercel.app",
+      ],
+      methods: ["GET", "POST"],
+      credentials: true,
+   },
+});
 
-// const getReceiverSocketId = (userId) => {
-//    return userSocketMap[userId];
-// };
+const getReceiverSocketId = (userId) => {
+   return userSocketMap[userId];
+};
 
-// const userSocketMap = {};
+const userSocketMap = {};
 
+io.on("connection", (socket) => {
+   console.log("A user connected", socket.id);
 
-// io.on("connection", (socket) => {
+   const userId = socket.handshake.query.userId;
+   if (userId) userSocketMap[userId] = socket.id;
 
-//    const userId = socket.handshake.query.userId;
-//    if (userId) userSocketMap[userId] = socket.id;
+   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
-//    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+   socket.on("disconnect", () => {
+      console.log("A user disconnected", socket.id);
+      delete userSocketMap[userId];
+      io.emit("getOnlineUsers", Object.keys(userSocketMap));
+   });
+});
 
-//    socket.on("disconnect", () => {
-//       delete userSocketMap[userId];
-//       io.emit("getOnlineUsers", Object.keys(userSocketMap));
-//    });
-// });
-
-// export { io, app, server, getReceiverSocketId };
+export { io, app, server, getReceiverSocketId };
