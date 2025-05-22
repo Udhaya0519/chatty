@@ -10,20 +10,10 @@ import { app, server } from "./config/socket.js";
 
 dotenv.config();
 
-app.use(
-   cors({
-      origin: [
-         "https://chatty-lovat-five.vercel.app",
-         "https://chatty-udhaya-js-projects.vercel.app",
-         "https://chatty-git-main-udhaya-js-projects.vercel.app",
-      ],
-      credentials: true,
-   })
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
@@ -40,4 +30,4 @@ if (process.env.NODE_ENV !== "production") {
 
 //export server for vercel
 
-export default server
+export default server;
