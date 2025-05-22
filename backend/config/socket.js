@@ -7,11 +7,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
    cors: {
-      origin: [
-         "https://chatty-lovat-five.vercel.app",
-         "https://chatty-udhaya-js-projects.vercel.app",
-         "https://chatty-git-main-udhaya-js-projects.vercel.app",
-      ],
+      origin: ["http://localhost:5173"],
       methods: ["GET", "POST"],
       credentials: true,
    },

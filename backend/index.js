@@ -20,9 +20,7 @@ app.use(cookieParser());
 app.use(
    cors({
       origin: [
-         "https://chatty-lovat-five.vercel.app",
-         "https://chatty-udhaya-js-projects.vercel.app",
-         "https://chatty-git-main-udhaya-js-projects.vercel.app",
+         "http://localhost:5173",
       ],
       credentials: true,
    })
