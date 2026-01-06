@@ -8,38 +8,39 @@ import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/user.route.js";
 import { app, server } from "./config/socket.js";
 
-import path from 'path'
-
 dotenv.config();
 
-const PORT = process.env.PORT;
-const __dirname = path.resolve()
+app.use(
+   cors({
+      origin: [
+         "https://chatty-lovat-five.vercel.app",
+         "https://chatty-udhaya-js-projects.vercel.app",
+         "https://chatty-git-main-udhaya-js-projects.vercel.app",
+      ],
+      credentials: true,
+   })
+);
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allows any origin that sends the request
-      callback(null, true);
-    },
-    credentials: true,
-  })
-);
+
+app.get("/", (_, res) => {
+   res.json({ message: "Server running successfully" });
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
+await connectDB();
 
-if(process.env.NODE_ENV === "production"){
-   app.use(express.static(path.join(__dirname, "../frontend/dist")))
+if (process.env.NODE_ENV !== "production") {
+   const PORT = process.env.PORT || 3000;
 
-   app.get(/^\/(?!api).*/, (req,res) => {
-      res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
-   })
+   server.listen(PORT, () => {
+      console.log("Server running at port:", PORT);
+   });
 }
 
-server.listen(PORT, () => {
-   console.log("Server running at port:", PORT);
-   connectDB();
-});
+//export server for vercel
+
+export default server
