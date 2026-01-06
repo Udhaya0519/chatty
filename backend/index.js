@@ -18,12 +18,13 @@ const __dirname = path.resolve()
 app.use(express.json());
 app.use(cookieParser());
 app.use(
-   cors({
-      origin: [
-         "http://localhost:5173",
-      ],
-      credentials: true,
-   })
+  cors({
+    origin: (origin, callback) => {
+      // Allows any origin that sends the request
+      callback(null, true);
+    },
+    credentials: true,
+  })
 );
 
 app.use("/api/auth", authRoutes);
